@@ -1,6 +1,21 @@
 package com.example.fit2081week2task2;
 
 
+import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -8,33 +23,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.content.BroadcastReceiver;
-import android.Manifest;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Toast;
-import android.view.View;
-
-import java.util.ArrayList;
-import java.util.StringTokenizer;
-import android.content.Intent;
-import android.content.IntentFilter;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class MainActivity extends AppCompatActivity {
     Button mButton;
@@ -53,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     Week6TaskAdapter recycleAdapter;
     ArrayList<MovieDetails> datasource = new ArrayList<MovieDetails>();
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
+    public static final String ITEMS_KEY="ITEMS_KEY";
+    public static final String ITEMS_SP_FILE_NAME="SP_FILE_NAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         recycleAdapter = new Week6TaskAdapter(datasource);
-        recyclerView=findViewById(R.id.recycler_layout_id);
-        layoutManager=new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+
 
 
         fab.setOnClickListener(new View.OnClickListener(){
@@ -264,7 +258,10 @@ public class MainActivity extends AppCompatActivity {
                 addListItem();
             }
             else if(id == R.id.ViewAllMovies){
-                getSupportFragmentManager().beginTransaction().add(R.id.frame_layout_id,Fragment1.newInstance()).addToBackStack("F1").commit();
+                onUsingGsonClick();
+
+
+                //getSupportFragmentManager().beginTransaction().add(R.id.frame_layout_id,Fragment1.newInstance()).addToBackStack("F1").commit();
             }
             else {
                 while(0 < mMovieArray.size()){
@@ -278,6 +275,19 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     }
+
+    private void onUsingGsonClick() {
+        Gson gson=new Gson();
+        SharedPreferences sP=getSharedPreferences(ITEMS_SP_FILE_NAME,MODE_PRIVATE);
+        String dbStr = gson.toJson(datasource);
+        SharedPreferences.Editor edit = sP.edit();
+        edit.putString(ITEMS_KEY, dbStr);
+        edit.apply();
+
+        Intent intent=new Intent(this,UsingGson.class);
+        startActivity(intent);
+    }
+
     View.OnClickListener undoOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
