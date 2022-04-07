@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     Week6TaskAdapter recycleAdapter;
     ArrayList<MovieDetails> datasource = new ArrayList<MovieDetails>();
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +87,12 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mMovieArray );
         newList.setAdapter(adapter);
-        recycleAdapter = new Week6TaskAdapter(datasource);
 
+
+        recycleAdapter = new Week6TaskAdapter(datasource);
+        recyclerView=findViewById(R.id.recycler_layout_id);
+        layoutManager=new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
 
         fab.setOnClickListener(new View.OnClickListener(){
