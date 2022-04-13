@@ -29,8 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/movie_name_id"
+            android:layout_marginTop="20dp"
             android:textSize="11sp" />
         <TextView
             android:id="@+id/movie_country_id"
@@ -38,8 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/movie_year_id"
+            android:layout_marginTop="40dp"
             android:textSize="11sp" />
         <TextView
             android:id="@+id/movie_cost_id"
@@ -47,8 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/movie_country_id"
+            android:layout_marginTop="60dp"
             android:textSize="11sp" />
 
         <TextView
@@ -57,8 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/movie_cost_id"
+            android:layout_marginTop="80dp"
             android:textSize="11sp" />
         <TextView
             android:id="@+id/movie_keywords_id"
@@ -66,8 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/movie_genre_id"
+            android:layout_marginTop="100dp"
             android:textSize="11sp" />
     </RelativeLayout>
 
