@@ -1,6 +1,8 @@
 package com.example.fit2081week2task2;
 
-public class MovieDetails {
+import java.io.Serializable;
+
+public class MovieDetails implements Serializable {
     private String movie_name;
     private String movie_year;
     private String movie_country;
