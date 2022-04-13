@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -48,9 +49,16 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> mMovieArray = new ArrayList<String>();
     ArrayAdapter<String> adapter;
     Week6TaskAdapter recycleAdapter;
+    RecyclerView recyclerView;
     ArrayList<MovieDetails> datasource = new ArrayList<MovieDetails>();
     public static final String ITEMS_KEY="ITEMS_KEY";
     public static final String ITEMS_SP_FILE_NAME="SP_FILE_NAME";
+    public static final String EXTRA_MOVIE_NAME = "com.example.fit2081week2task2.MOVIE_NAME";
+    public static final String EXTRA_MOVIE_YEAR = "com.example.fit2081week2task2.MOVIE_YEAR";
+    public static final String EXTRA_MOVIE_COUNTRY = "com.example.fit2081week2task2.MOVIE_COUNTRY";
+    public static final String EXTRA_MOVIE_COST = "com.example.fit2081week2task2.MOVIE_COST";
+    public static final String EXTRA_MOVIE_GENRE = "com.example.fit2081week2task2.MOVIE_GENRE";
+    public static final String EXTRA_MOVIE_KEYWORDS = "com.example.fit2081week2task2.MOVIE_KEYWORDS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mMovieArray );
         newList.setAdapter(adapter);
 
-
+        recyclerView=findViewById(R.id.recycler_layout_id);
         recycleAdapter = new Week6TaskAdapter(datasource);
 
 
@@ -258,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
                 addListItem();
             }
             else if(id == R.id.ViewAllMovies){
-                onUsingGsonClick();
+                viewAllMovies(recyclerView);
 
 
                 //getSupportFragmentManager().beginTransaction().add(R.id.frame_layout_id,Fragment1.newInstance()).addToBackStack("F1").commit();
@@ -274,6 +282,16 @@ public class MainActivity extends AppCompatActivity {
             // tell the OS
             return true;
         }
+    }
+
+    public void viewAllMovies(View view){
+        Intent intent = new Intent(this, RecyclerActivity.class);
+        intent.putExtra(EXTRA_MOVIE_NAME, mMovieName.getText().toString());
+        intent.putExtra(EXTRA_MOVIE_YEAR, mMovieYear.getText().toString());
+        intent.putExtra(EXTRA_MOVIE_COUNTRY, mMovieCountry.getText().toString());
+        intent.putExtra(EXTRA_MOVIE_COST, mMovieCost.getText().toString());
+        intent.putExtra(EXTRA_MOVIE_GENRE, mMovieGenre.getText().toString());
+        intent.putExtra(EXTRA_MOVIE_KEYWORDS, mMovieKeywords.getText().toString());
     }
 
     private void onUsingGsonClick() {
