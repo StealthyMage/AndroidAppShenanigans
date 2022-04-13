@@ -44,7 +44,7 @@ public class RecyclerActivity extends AppCompatActivity {
         addItem();
     }
     public void addItem() {
-        MovieDetails newDetails = new MovieDetails(mMovieName,mMovieYear,mMovieCountry,mMovieCost,mMovieGenre,mMovieKeywords);
+        MovieDetails newDetails = new MovieDetails("Movie name: " + mMovieName,"Movie year: " +mMovieYear,"Movie country: " + mMovieCountry,"Movie cost: " +mMovieCost,"Movie genre: " +mMovieGenre,"Movie keywords: " +mMovieKeywords);
         dataSource.add(newDetails);
         adapter.notifyDataSetChanged();
 

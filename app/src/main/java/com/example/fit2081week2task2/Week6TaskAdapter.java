@@ -13,13 +13,7 @@ import java.util.ArrayList;
 public class Week6TaskAdapter extends RecyclerView.Adapter<Week6TaskAdapter.MyViewHolder> {
 
     ArrayList<MovieDetails> ds;
-    int counter;
 
-
-    public Week6TaskAdapter(ArrayList<MovieDetails> ds) {
-        this.ds = ds;
-        counter = 0;
-    }
     public void setData(ArrayList<MovieDetails> data) {
         this.ds = data;
     }
@@ -59,11 +53,9 @@ public class Week6TaskAdapter extends RecyclerView.Adapter<Week6TaskAdapter.MyVi
         TextView movieCost;
         TextView movieGenre;
         TextView movieKeywords;
-        int holderId;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            holderId = counter++;
             movieName = itemView.findViewById(R.id.movie_name_id);
             movieYear = itemView.findViewById(R.id.movie_year_id);
             movieCountry = itemView.findViewById(R.id.movie_country_id);

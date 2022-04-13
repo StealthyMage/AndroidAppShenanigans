@@ -28,7 +28,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -294,19 +293,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MOVIE_KEYWORDS, mMovieKeywords.getText().toString());
         startActivity(intent);
     }
-
-    private void onUsingGsonClick() {
-        Gson gson=new Gson();
-        SharedPreferences sP=getSharedPreferences(ITEMS_SP_FILE_NAME,MODE_PRIVATE);
-        String dbStr = gson.toJson(datasource);
-        SharedPreferences.Editor edit = sP.edit();
-        edit.putString(ITEMS_KEY, dbStr);
-        edit.apply();
-
-        Intent intent=new Intent(this,UsingGson.class);
-        startActivity(intent);
-    }
-
     View.OnClickListener undoOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
