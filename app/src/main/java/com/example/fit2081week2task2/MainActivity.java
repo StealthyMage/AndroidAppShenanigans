@@ -251,6 +251,7 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedPref.edit();
             int id = item.getItemId();
             if(id == R.id.RemoveLastMovie){
+                //Calls the DeleteLast method as defined in MovieDetailDao.
                 mMovieViewModel.deleteLast();
                 mMovieArray.remove(mMovieArray.size()-1);
                 //datasource.remove(datasource.size()-1);
@@ -265,6 +266,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("Movie Keywords", mMovieKeywords.getText().toString());
                 editor.apply();*/
                 addListItem();
+                //Creates a new MovieDetails object to insert into the database.
                 MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                 mMovieViewModel.insert(newMovie);
             }
@@ -280,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
                     //datasource.remove(datasource.size()-1);
                     adapter.notifyDataSetChanged();
                 }
+               //Deletes all of the entries in the Database.
                 mMovieViewModel.deleteAll();
             }
             // close the drawer
@@ -288,7 +291,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     }
-
+    //This method starts a new activity with RecyclerActivity.
     public void viewAllMovies(View view){
         Intent intent = new Intent(this, RecyclerActivity.class);
         //Bundle args = new Bundle();

@@ -10,6 +10,7 @@ public class MovieRepository {
     private MovieDetailDao mMovieDetailsDao;
     private LiveData<List<MovieDetails>> mAllMovies;
 
+    /*This method defines the main repository for the database*/
     MovieRepository(Application application){
         MovieDatabase db = MovieDatabase.getDatabase(application);
         mMovieDetailsDao = db.movieDetailDao();
@@ -18,6 +19,7 @@ public class MovieRepository {
 
     LiveData<List<MovieDetails>>getAllMovies(){return mAllMovies;}
 
+    /*These methods define when the executor should insert or delete rows in the table.*/
     void insert(MovieDetails movie){
         MovieDatabase.databaseWriteExecutor.execute(() -> mMovieDetailsDao.addMovie(movie));
     }

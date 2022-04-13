@@ -8,6 +8,7 @@ import androidx.room.Query;
 
 import java.util.List;
 
+//DAO Methods for the database
 @Dao
 public interface MovieDetailDao {
     @Query("select*from MovieDetails")

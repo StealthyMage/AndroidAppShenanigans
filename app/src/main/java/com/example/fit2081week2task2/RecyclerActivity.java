@@ -11,12 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class RecyclerActivity extends AppCompatActivity {
-    String mMovieName;
-    String mMovieYear;
-    String mMovieCountry;
-    String mMovieGenre;
-    String mMovieCost;
-    String mMovieKeywords;
     ArrayList<MovieDetails> datasource = new ArrayList<MovieDetails>();
 
     ArrayList<MovieDetails> dataSource;
@@ -29,6 +23,7 @@ public class RecyclerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_layout);
+        //gets the intent and the bundle holding the arraylist.
         Intent intent = getIntent();
         //Bundle args = intent.getBundleExtra("BUNDLE");
         //datasource = (ArrayList<MovieDetails>) args.getSerializable("ARRAYLIST");
@@ -46,6 +41,10 @@ public class RecyclerActivity extends AppCompatActivity {
         mMovieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
         mMovieViewModel.getAllMovies().observe(this, datasource ->{adapter.setData((ArrayList<MovieDetails>) datasource);
         adapter.notifyDataSetChanged();});
+        /*The above code instantiates a new instance of ViewModelProvider. This creates new ViewModels for the
+        current class. Every time this activity is started, ViewModelProviders get all the movies currently
+        stored in the database using both .observe and the .getAllMovies() function defined in the
+        MovieDetailDAO*/
     }
 
 }
