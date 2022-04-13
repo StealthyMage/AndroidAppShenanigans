@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     Week6TaskAdapter recycleAdapter;
     RecyclerView recyclerView;
     ArrayList<MovieDetails> datasource = new ArrayList<MovieDetails>();
-    Week6TaskAdapter week6Adapter;
 
     public static final String EXTRA_MOVIE_NAME = "com.example.fit2081week2task2.MOVIE_NAME";
     public static final String EXTRA_MOVIE_YEAR = "com.example.fit2081week2task2.MOVIE_YEAR";
@@ -92,9 +91,6 @@ public class MainActivity extends AppCompatActivity {
         newList.setAdapter(adapter);
 
         recyclerView=findViewById(R.id.recycler_layout_id);
-        week6Adapter = new Week6TaskAdapter();
-        week6Adapter.setData(datasource);
-        recyclerView.setAdapter(week6Adapter);
 
 
 
@@ -168,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
         MovieDetails newDetails = new MovieDetails(mMovieName.getText().toString(),mMovieYear.getText().toString(),mMovieCountry.getText().toString(),mMovieCost.getText().toString(),mMovieGenre.getText().toString(),mMovieKeywords.getText().toString());
         datasource.add(newDetails);
         adapter.notifyDataSetChanged();
-        week6Adapter.notifyDataSetChanged();
     }
 
     @Override
