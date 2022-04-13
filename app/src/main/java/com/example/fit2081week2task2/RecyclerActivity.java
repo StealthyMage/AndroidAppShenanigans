@@ -16,6 +16,7 @@ public class RecyclerActivity extends AppCompatActivity {
     String mMovieGenre;
     String mMovieCost;
     String mMovieKeywords;
+    ArrayList<MovieDetails> datasource = new ArrayList<MovieDetails>();
 
     ArrayList<MovieDetails> dataSource;
     Week6TaskAdapter adapter;
@@ -26,12 +27,14 @@ public class RecyclerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_layout);
         Intent intent = getIntent();
-        mMovieName = intent.getStringExtra(MainActivity.EXTRA_MOVIE_NAME);
-        mMovieYear = intent.getStringExtra(MainActivity.EXTRA_MOVIE_YEAR);
-        mMovieCountry = intent.getStringExtra(MainActivity.EXTRA_MOVIE_COUNTRY);
-        mMovieCost = intent.getStringExtra(MainActivity.EXTRA_MOVIE_COST);
-        mMovieGenre = intent.getStringExtra(MainActivity.EXTRA_MOVIE_GENRE);
-        mMovieKeywords = intent.getStringExtra(MainActivity.EXTRA_MOVIE_KEYWORDS);
+       // mMovieName = intent.getStringExtra(MainActivity.EXTRA_MOVIE_NAME);
+       // mMovieYear = intent.getStringExtra(MainActivity.EXTRA_MOVIE_YEAR);
+       // mMovieCountry = intent.getStringExtra(MainActivity.EXTRA_MOVIE_COUNTRY);
+       // mMovieCost = intent.getStringExtra(MainActivity.EXTRA_MOVIE_COST);
+       // mMovieGenre = intent.getStringExtra(MainActivity.EXTRA_MOVIE_GENRE);
+      //  mMovieKeywords = intent.getStringExtra(MainActivity.EXTRA_MOVIE_KEYWORDS);
+        Bundle args = intent.getBundleExtra("BUNDLE");
+        dataSource = (ArrayList<MovieDetails>) args.getSerializable("ARRAYLIST");
 
         recyclerView=findViewById(R.id.recycler_layout_id);
         layoutManager=new LinearLayoutManager(this);

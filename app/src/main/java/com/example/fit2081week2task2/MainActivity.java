@@ -29,6 +29,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MOVIE_COST = "com.example.fit2081week2task2.MOVIE_COST";
     public static final String EXTRA_MOVIE_GENRE = "com.example.fit2081week2task2.MOVIE_GENRE";
     public static final String EXTRA_MOVIE_KEYWORDS = "com.example.fit2081week2task2.MOVIE_KEYWORDS";
+    public static final String EXTRA_MOVIE_DATA = "com.example.fit2081week2task2.MOVIE_DATA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -283,12 +285,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void viewAllMovies(View view){
         Intent intent = new Intent(this, RecyclerActivity.class);
-        intent.putExtra(EXTRA_MOVIE_NAME, mMovieName.getText().toString());
-        intent.putExtra(EXTRA_MOVIE_YEAR, mMovieYear.getText().toString());
-        intent.putExtra(EXTRA_MOVIE_COUNTRY, mMovieCountry.getText().toString());
-        intent.putExtra(EXTRA_MOVIE_COST, mMovieCost.getText().toString());
-        intent.putExtra(EXTRA_MOVIE_GENRE, mMovieGenre.getText().toString());
-        intent.putExtra(EXTRA_MOVIE_KEYWORDS, mMovieKeywords.getText().toString());
+        //intent.putExtra(EXTRA_MOVIE_NAME, mMovieName.getText().toString());
+       // intent.putExtra(EXTRA_MOVIE_YEAR, mMovieYear.getText().toString());
+       // intent.putExtra(EXTRA_MOVIE_COUNTRY, mMovieCountry.getText().toString());
+       // intent.putExtra(EXTRA_MOVIE_COST, mMovieCost.getText().toString());
+      //  intent.putExtra(EXTRA_MOVIE_GENRE, mMovieGenre.getText().toString());
+      //  intent.putExtra(EXTRA_MOVIE_KEYWORDS, mMovieKeywords.getText().toString());
+        Bundle args = new Bundle();
+        args.putSerializable("ARRAYLIST",(Serializable)datasource);
+        intent.putExtra("BUNDLE",args);
         startActivity(intent);
     }
     View.OnClickListener undoOnClickListener = new View.OnClickListener() {
