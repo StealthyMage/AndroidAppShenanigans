@@ -292,6 +292,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MOVIE_COST, mMovieCost.getText().toString());
         intent.putExtra(EXTRA_MOVIE_GENRE, mMovieGenre.getText().toString());
         intent.putExtra(EXTRA_MOVIE_KEYWORDS, mMovieKeywords.getText().toString());
+        startActivity(intent);
     }
 
     private void onUsingGsonClick() {
