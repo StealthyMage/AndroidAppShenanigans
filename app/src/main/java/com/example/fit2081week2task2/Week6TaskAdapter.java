@@ -20,6 +20,9 @@ public class Week6TaskAdapter extends RecyclerView.Adapter<Week6TaskAdapter.MyVi
         this.ds = ds;
         counter = 0;
     }
+    public void setData(ArrayList<MovieDetails> data) {
+        this.ds = data;
+    }
 
     @NonNull
     @Override

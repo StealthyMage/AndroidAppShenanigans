@@ -2,7 +2,6 @@ package com.example.fit2081week2task2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,8 +40,10 @@ public class RecyclerActivity extends AppCompatActivity {
         dataSource=new ArrayList<MovieDetails>();
         adapter=new Week6TaskAdapter(dataSource);
         recyclerView.setAdapter(adapter);
+        adapter.setData(dataSource);
+        addItem();
     }
-    public void addItem(View view) {
+    public void addItem() {
         MovieDetails newDetails = new MovieDetails(mMovieName,mMovieYear,mMovieCountry,mMovieCost,mMovieGenre,mMovieKeywords);
         dataSource.add(newDetails);
         adapter.notifyDataSetChanged();
