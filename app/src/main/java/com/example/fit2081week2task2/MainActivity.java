@@ -48,17 +48,8 @@ public class MainActivity extends AppCompatActivity {
     ListView newList;
     ArrayList<String> mMovieArray = new ArrayList<String>();
     ArrayAdapter<String> adapter;
-    Week6TaskAdapter recycleAdapter;
     RecyclerView recyclerView;
     ArrayList<MovieDetails> datasource = new ArrayList<MovieDetails>();
-
-    public static final String EXTRA_MOVIE_NAME = "com.example.fit2081week2task2.MOVIE_NAME";
-    public static final String EXTRA_MOVIE_YEAR = "com.example.fit2081week2task2.MOVIE_YEAR";
-    public static final String EXTRA_MOVIE_COUNTRY = "com.example.fit2081week2task2.MOVIE_COUNTRY";
-    public static final String EXTRA_MOVIE_COST = "com.example.fit2081week2task2.MOVIE_COST";
-    public static final String EXTRA_MOVIE_GENRE = "com.example.fit2081week2task2.MOVIE_GENRE";
-    public static final String EXTRA_MOVIE_KEYWORDS = "com.example.fit2081week2task2.MOVIE_KEYWORDS";
-    public static final String EXTRA_MOVIE_DATA = "com.example.fit2081week2task2.MOVIE_DATA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -287,12 +278,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void viewAllMovies(View view){
         Intent intent = new Intent(this, RecyclerActivity.class);
-        //intent.putExtra(EXTRA_MOVIE_NAME, mMovieName.getText().toString());
-       // intent.putExtra(EXTRA_MOVIE_YEAR, mMovieYear.getText().toString());
-       // intent.putExtra(EXTRA_MOVIE_COUNTRY, mMovieCountry.getText().toString());
-       // intent.putExtra(EXTRA_MOVIE_COST, mMovieCost.getText().toString());
-      //  intent.putExtra(EXTRA_MOVIE_GENRE, mMovieGenre.getText().toString());
-      //  intent.putExtra(EXTRA_MOVIE_KEYWORDS, mMovieKeywords.getText().toString());
         Bundle args = new Bundle();
         args.putSerializable("ARRAYLIST",(Serializable)datasource);
         intent.putExtra("BUNDLE",args);
