@@ -30,8 +30,8 @@ public class RecyclerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_layout);
         Intent intent = getIntent();
-        Bundle args = intent.getBundleExtra("BUNDLE");
-        datasource = (ArrayList<MovieDetails>) args.getSerializable("ARRAYLIST");
+        //Bundle args = intent.getBundleExtra("BUNDLE");
+        //datasource = (ArrayList<MovieDetails>) args.getSerializable("ARRAYLIST");
 
         recyclerView=findViewById(R.id.recycler_layout_id);
         layoutManager=new LinearLayoutManager(this);
