@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     RecyclerView recyclerView;
     ArrayList<MovieDetails> datasource = new ArrayList<MovieDetails>();
+    private MovieViewModel mMovieViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +86,10 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mMovieArray );
         newList.setAdapter(adapter);
 
+        //Week6
         recyclerView=findViewById(R.id.recycler_layout_id);
+
+        mMovieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
 
 
 
@@ -242,19 +248,22 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedPref.edit();
             int id = item.getItemId();
             if(id == R.id.RemoveLastMovie){
-                mMovieArray.remove(mMovieArray.size()-1);
-                datasource.remove(datasource.size()-1);
-                adapter.notifyDataSetChanged();
+                mMovieViewModel.deleteLast();
+                //mMovieArray.remove(mMovieArray.size()-1);
+                //datasource.remove(datasource.size()-1);
+               // adapter.notifyDataSetChanged();
             }
             else if(id == R.id.AddMovieMenuID){
-                editor.putString("Movie Name", mMovieName.getText().toString());
+                /*editor.putString("Movie Name", mMovieName.getText().toString());
                 editor.putString("Year Released", mMovieYear.getText().toString());
                 editor.putString("Movie Genre", mMovieGenre.getText().toString().toLowerCase());
                 editor.putString("Movie Country", mMovieCountry.getText().toString());
                 editor.putString("Movie Cost", mMovieCost.getText().toString());
                 editor.putString("Movie Keywords", mMovieKeywords.getText().toString());
-                editor.apply();
-                addListItem();
+                editor.apply();*/
+                //addListItem();
+                MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
+                mMovieViewModel.insert(newMovie);
             }
             else if(id == R.id.ViewAllMovies){
                 viewAllMovies(recyclerView);
@@ -263,11 +272,12 @@ public class MainActivity extends AppCompatActivity {
                 //getSupportFragmentManager().beginTransaction().add(R.id.frame_layout_id,Fragment1.newInstance()).addToBackStack("F1").commit();
             }
             else {
-                while(0 < mMovieArray.size()){
+               /* while(0 < mMovieArray.size()){
                     mMovieArray.remove(mMovieArray.size()-1);
                     datasource.remove(datasource.size()-1);
                     adapter.notifyDataSetChanged();
-                }
+                }*/
+                mMovieViewModel.deleteAll();
             }
             // close the drawer
             drawerlayout.closeDrawers();

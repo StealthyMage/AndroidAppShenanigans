@@ -1,13 +1,27 @@
 package com.example.fit2081week2task2;
 
-import java.io.Serializable;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-public class MovieDetails implements Serializable {
+@Entity(tableName = "MovieDetails")
+public class MovieDetails /*implements Serializable */{
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name = "MovieID")
+    private int id;
+    @ColumnInfo(name = "MovieName")
     private String movie_name;
+    @ColumnInfo(name = "MovieYear")
     private String movie_year;
+    @ColumnInfo(name = "MovieCountry")
     private String movie_country;
+    @ColumnInfo(name = "MovieCost")
     private String movie_cost;
+    @ColumnInfo(name = "MovieGenre")
     private String movie_genre;
+    @ColumnInfo(name = "MovieKeywords")
     private String movie_keywords;
 
     public MovieDetails(String movie_name, String movie_year, String movie_country, String movie_cost, String movie_genre, String movie_keywords) {
@@ -42,4 +56,6 @@ public class MovieDetails implements Serializable {
     public String getMovie_keywords() {
         return movie_keywords;
     }
+    public int getId(){return id;}
+    public void setId(@NonNull int id){this.id = id;}
 }

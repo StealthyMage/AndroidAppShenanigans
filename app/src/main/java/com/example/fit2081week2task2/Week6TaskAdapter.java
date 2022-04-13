@@ -9,15 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Week6TaskAdapter extends RecyclerView.Adapter<Week6TaskAdapter.MyViewHolder> {
 
     ArrayList<MovieDetails> ds;
+    private List<MovieDetails> mMovieDetails;
 
-    public void setData(ArrayList<MovieDetails> data) {
-        this.ds = data;
-    }
-
+    //public void setData(ArrayList<MovieDetails> data) {
+        //this.ds = data;
+   // }
+        public void setData(List<MovieDetails> data) {
+        mMovieDetails=data;
+                }
     @NonNull
     @Override
     public Week6TaskAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,7 +47,13 @@ public class Week6TaskAdapter extends RecyclerView.Adapter<Week6TaskAdapter.MyVi
 
     @Override
     public int getItemCount() {
-        return ds.size();
+        if(mMovieDetails == null){
+            return 0;
+        }
+        else{
+            return mMovieDetails.size();
+        }
+        //return ds.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

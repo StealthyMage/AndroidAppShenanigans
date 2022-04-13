@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,8 @@ public class RecyclerActivity extends AppCompatActivity {
     Week6TaskAdapter adapter;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
+    private MovieViewModel mMovieViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,11 @@ public class RecyclerActivity extends AppCompatActivity {
         adapter=new Week6TaskAdapter();
         recyclerView.setAdapter(adapter);
         adapter.setData(datasource);
+
+        //Week7
+        mMovieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
+        mMovieViewModel.getAllMovies().observe(this, datasource ->{adapter.setData((ArrayList<MovieDetails>) datasource);
+        adapter.notifyDataSetChanged();});
     }
 
 }
