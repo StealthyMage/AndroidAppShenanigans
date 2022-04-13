@@ -22,7 +22,7 @@ public interface MovieDetailDao {
     @Query("delete FROM MovieDetails")
     void deleteAllMovies();
 
-    @Query("delete FROM MovieDetails where MovieID = (SELECT MAX(MovieID)) in MovieDetails")
+    @Query("delete from MovieDetails where MovieID = (Select MAX(MovieID) from MovieDetails)")
     void deleteLastMovie();
 
 }
