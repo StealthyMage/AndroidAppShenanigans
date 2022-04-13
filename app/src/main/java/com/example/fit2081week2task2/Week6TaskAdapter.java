@@ -35,12 +35,12 @@ public class Week6TaskAdapter extends RecyclerView.Adapter<Week6TaskAdapter.MyVi
     public void onBindViewHolder(@NonNull Week6TaskAdapter.MyViewHolder holder, int position) {
 
 
-        holder.movieName.setText(ds.get(position).getMovie_name());
-        holder.movieYear.setText(ds.get(position).getMovie_year());
-        holder.movieCountry.setText(ds.get(position).getMovie_country());
-        holder.movieCost.setText(ds.get(position).getMovie_cost());
-        holder.movieGenre.setText(ds.get(position).getMovie_genre());
-        holder.movieKeywords.setText(ds.get(position).getMovie_keywords());
+        holder.movieName.setText(mMovieDetails.get(position).getMovie_name());
+        holder.movieYear.setText(mMovieDetails.get(position).getMovie_year());
+        holder.movieCountry.setText(mMovieDetails.get(position).getMovie_country());
+        holder.movieCost.setText(mMovieDetails.get(position).getMovie_cost());
+        holder.movieGenre.setText(mMovieDetails.get(position).getMovie_genre());
+        holder.movieKeywords.setText(mMovieDetails.get(position).getMovie_keywords());
 
 
     }
