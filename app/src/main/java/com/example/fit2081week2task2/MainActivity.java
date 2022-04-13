@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("Movie Cost", mMovieCost.getText().toString());
                 editor.putString("Movie Keywords", mMovieKeywords.getText().toString());
                 editor.apply();
-                //addListItem();
+                addListItem();
                 MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                 mMovieViewModel.insert(newMovie);
                 adapter.notifyDataSetChanged();
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                         editor.putString("Movie Cost", mMovieCost.getText().toString());
                         editor.putString("Movie Keywords", mMovieKeywords.getText().toString());
                         editor.apply();
-                        //addListItem();
+                        addListItem();
                         MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                         mMovieViewModel.insert(newMovie);
                         adapter.notifyDataSetChanged();
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
     private void addListItem() {
         mMovieArray.add(mMovieName.getText().toString() + " | " + mMovieYear.getText().toString());
         MovieDetails newDetails = new MovieDetails(mMovieName.getText().toString(),mMovieYear.getText().toString(),mMovieCountry.getText().toString(),mMovieCost.getText().toString(),mMovieGenre.getText().toString(),mMovieKeywords.getText().toString());
-        datasource.add(newDetails);
+        //datasource.add(newDetails);
         adapter.notifyDataSetChanged();
     }
 
@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("Movie Cost", mMovieCost.getText().toString());
                 editor.putString("Movie Keywords", mMovieKeywords.getText().toString());
                 editor.apply();*/
-                //addListItem();
+                addListItem();
                 MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                 mMovieViewModel.insert(newMovie);
             }
