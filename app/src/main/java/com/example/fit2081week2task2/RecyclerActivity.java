@@ -34,7 +34,7 @@ public class RecyclerActivity extends AppCompatActivity {
        // mMovieGenre = intent.getStringExtra(MainActivity.EXTRA_MOVIE_GENRE);
       //  mMovieKeywords = intent.getStringExtra(MainActivity.EXTRA_MOVIE_KEYWORDS);
         Bundle args = intent.getBundleExtra("BUNDLE");
-        dataSource = (ArrayList<MovieDetails>) args.getSerializable("ARRAYLIST");
+        datasource = (ArrayList<MovieDetails>) args.getSerializable("ARRAYLIST");
 
         recyclerView=findViewById(R.id.recycler_layout_id);
         layoutManager=new LinearLayoutManager(this);
@@ -43,12 +43,12 @@ public class RecyclerActivity extends AppCompatActivity {
         dataSource=new ArrayList<MovieDetails>();
         adapter=new Week6TaskAdapter();
         recyclerView.setAdapter(adapter);
-        adapter.setData(dataSource);
+        adapter.setData(datasource);
         addItem();
     }
     public void addItem() {
         MovieDetails newDetails = new MovieDetails("Movie name: " + mMovieName,"Movie year: " +mMovieYear,"Movie country: " + mMovieCountry,"Movie cost: " +mMovieCost,"Movie genre: " +mMovieGenre,"Movie keywords: " +mMovieKeywords);
-        dataSource.add(newDetails);
+        datasource.add(newDetails);
         adapter.notifyDataSetChanged();
 
     }
