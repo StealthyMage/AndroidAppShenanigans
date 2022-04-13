@@ -38,7 +38,7 @@ public class RecyclerActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         dataSource=new ArrayList<MovieDetails>();
-        adapter=new Week6TaskAdapter(dataSource);
+        adapter=new Week6TaskAdapter();
         recyclerView.setAdapter(adapter);
         adapter.setData(dataSource);
         addItem();
