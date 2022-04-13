@@ -44,13 +44,13 @@ public class RecyclerActivity extends AppCompatActivity {
         adapter=new Week6TaskAdapter();
         recyclerView.setAdapter(adapter);
         adapter.setData(datasource);
-        addItem();
+       // addItem();
     }
-    public void addItem() {
+    /*public void addItem() {
         MovieDetails newDetails = new MovieDetails("Movie name: " + mMovieName,"Movie year: " +mMovieYear,"Movie country: " + mMovieCountry,"Movie cost: " +mMovieCost,"Movie genre: " +mMovieGenre,"Movie keywords: " +mMovieKeywords);
         datasource.add(newDetails);
         adapter.notifyDataSetChanged();
 
-    }
+    }*/
 
 }
