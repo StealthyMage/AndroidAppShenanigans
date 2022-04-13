@@ -252,9 +252,9 @@ public class MainActivity extends AppCompatActivity {
             int id = item.getItemId();
             if(id == R.id.RemoveLastMovie){
                 mMovieViewModel.deleteLast();
-                //mMovieArray.remove(mMovieArray.size()-1);
+                mMovieArray.remove(mMovieArray.size()-1);
                 //datasource.remove(datasource.size()-1);
-               // adapter.notifyDataSetChanged();
+               adapter.notifyDataSetChanged();
             }
             else if(id == R.id.AddMovieMenuID){
                 /*editor.putString("Movie Name", mMovieName.getText().toString());
@@ -275,11 +275,11 @@ public class MainActivity extends AppCompatActivity {
                 //getSupportFragmentManager().beginTransaction().add(R.id.frame_layout_id,Fragment1.newInstance()).addToBackStack("F1").commit();
             }
             else {
-               /* while(0 < mMovieArray.size()){
+               while(0 < mMovieArray.size()){
                     mMovieArray.remove(mMovieArray.size()-1);
-                    datasource.remove(datasource.size()-1);
+                    //datasource.remove(datasource.size()-1);
                     adapter.notifyDataSetChanged();
-                }*/
+                }
                 mMovieViewModel.deleteAll();
             }
             // close the drawer
