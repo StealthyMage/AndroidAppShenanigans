@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-//
+//Defines the ViewModel that the program will use to display each of the Database entries.
 public class MovieViewModel extends AndroidViewModel {
     private MovieRepository mRepository;
     private LiveData<List<MovieDetails>> mAllMovies;
