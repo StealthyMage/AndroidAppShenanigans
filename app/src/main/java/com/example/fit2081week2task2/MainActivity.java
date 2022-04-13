@@ -252,6 +252,7 @@ public class MainActivity extends AppCompatActivity {
             int id = item.getItemId();
             if(id == R.id.RemoveLastMovie){
                 mMovieArray.remove(mMovieArray.size()-1);
+                datasource.remove(datasource.size()-1);
                 adapter.notifyDataSetChanged();
             }
             else if(id == R.id.AddMovieMenuID){
@@ -273,6 +274,7 @@ public class MainActivity extends AppCompatActivity {
             else {
                 while(0 < mMovieArray.size()){
                     mMovieArray.remove(mMovieArray.size()-1);
+                    datasource.remove(datasource.size()-1);
                     adapter.notifyDataSetChanged();
                 }
             }
