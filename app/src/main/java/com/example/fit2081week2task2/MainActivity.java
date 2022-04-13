@@ -30,7 +30,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -105,7 +104,9 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("Movie Cost", mMovieCost.getText().toString());
                 editor.putString("Movie Keywords", mMovieKeywords.getText().toString());
                 editor.apply();
-                addListItem();
+                //addListItem();
+                MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
+                mMovieViewModel.insert(newMovie);
                 adapter.notifyDataSetChanged();
 
             }
@@ -138,7 +139,9 @@ public class MainActivity extends AppCompatActivity {
                         editor.putString("Movie Cost", mMovieCost.getText().toString());
                         editor.putString("Movie Keywords", mMovieKeywords.getText().toString());
                         editor.apply();
-                        addListItem();
+                        //addListItem();
+                        MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
+                        mMovieViewModel.insert(newMovie);
                         adapter.notifyDataSetChanged();
                     }
                 }
@@ -288,9 +291,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void viewAllMovies(View view){
         Intent intent = new Intent(this, RecyclerActivity.class);
-        Bundle args = new Bundle();
-        args.putSerializable("ARRAYLIST",(Serializable)datasource);
-        intent.putExtra("BUNDLE",args);
+        //Bundle args = new Bundle();
+        //args.putSerializable("ARRAYLIST",(Serializable)datasource);
+        //intent.putExtra("BUNDLE",args);
         startActivity(intent);
     }
     View.OnClickListener undoOnClickListener = new View.OnClickListener() {
