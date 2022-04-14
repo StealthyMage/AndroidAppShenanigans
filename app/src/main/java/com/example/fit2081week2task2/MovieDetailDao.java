@@ -9,6 +9,7 @@ import androidx.room.Query;
 import java.util.List;
 
 //DAO Methods for the database
+/*A DAO is a Data Access Object and allows the program to interact with a database.*/
 @Dao
 public interface MovieDetailDao {
     @Query("select*from MovieDetails")
