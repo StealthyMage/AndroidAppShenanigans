@@ -25,4 +25,12 @@ public interface MovieDetailDao {
     @Query("delete from MovieDetails where MovieID = (Select MAX(MovieID) from MovieDetails)")
     void deleteLastMovie();
 
+    @Query("DELETE FROM MovieDetails where MovieYear > 2000")
+    void deleteYoungerThan2000();
+
+    @Query("DELETE FROM MovieDetails where MovieCost < 100")
+    void deleteLessThan100();
+
+    @Query("SELECT * FROM MovieDetails WHERE MovieCost > 100")
+    LiveData<List<MovieDetails>> listMoreThan100();
 }

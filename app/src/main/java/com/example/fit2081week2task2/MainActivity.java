@@ -274,6 +274,15 @@ public class MainActivity extends AppCompatActivity {
 
                 //getSupportFragmentManager().beginTransaction().add(R.id.frame_layout_id,Fragment1.newInstance()).addToBackStack("F1").commit();
             }
+            else if(id == R.id.DeleteMoviesOlderThan2000){
+                mMovieViewModel.deleteYoungerThan2000();
+            }
+            else if(id == R.id.DeleteMoviesLessThan100){
+                mMovieViewModel.deleteLessThan100();
+            }
+            else if(id == R.id.ListMoreThan100){
+               listMoreThan100(recyclerView);
+            }
             else {
                /* while(0 < mMovieArray.size()){
                     mMovieArray.remove(mMovieArray.size()-1);
@@ -294,6 +303,10 @@ public class MainActivity extends AppCompatActivity {
         //Bundle args = new Bundle();
         //args.putSerializable("ARRAYLIST",(Serializable)datasource);
         //intent.putExtra("BUNDLE",args);
+        startActivity(intent);
+    }
+    public void listMoreThan100(View view){
+        Intent intent = new Intent(this, NewRecycler.class);
         startActivity(intent);
     }
     View.OnClickListener undoOnClickListener = new View.OnClickListener() {

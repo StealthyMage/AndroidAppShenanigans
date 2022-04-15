@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {MovieDetails.class}, version = 1)
+@Database(entities = {MovieDetails.class}, version = 3)
 public abstract class MovieDatabase extends RoomDatabase{
     public static final String MOVIE_DATABASE_NAME = "Movie_Database";
     public abstract MovieDetailDao movieDetailDao();
@@ -22,7 +22,9 @@ public abstract class MovieDatabase extends RoomDatabase{
         if(INSTANCE == null){
             synchronized (MovieDatabase.class){
                 if(INSTANCE == null){
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), MovieDatabase.class, MOVIE_DATABASE_NAME).build();
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), MovieDatabase.class, MOVIE_DATABASE_NAME)
+                            .fallbackToDestructiveMigration()
+                            .build();
                 }
             }
         }
