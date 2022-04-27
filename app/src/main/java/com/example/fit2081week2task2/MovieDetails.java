@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "MovieDetails")
 public class MovieDetails /*implements Serializable */{
-    public static final String TABLE_NAME = "Movies";
+    public static final String TABLE_NAME = "MovieDetails";
     public static final String COLUMN_ID = BaseColumns._ID;
     @PrimaryKey(autoGenerate = true)
     @NonNull
