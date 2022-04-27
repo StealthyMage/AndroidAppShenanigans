@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<MovieDetails> datasource = new ArrayList<MovieDetails>();
     private MovieViewModel mMovieViewModel;
     //Week 8 Firebase
-    FirebaseDatabase mFBDB = FirebaseDatabase.getInstance();
-    DatabaseReference ref = mFBDB.getReference("/movies");
+    FirebaseDatabase mFBDB;
+    DatabaseReference ref;
 
 
     @Override
@@ -94,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.recycler_layout_id);
 
         mMovieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
-
-
+        mFBDB = FirebaseDatabase.getInstance();
+        ref = mFBDB.getReference("/movies");
 
 
 
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                         addListItem();
                         MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                         mMovieViewModel.insert(newMovie);
-                        ref.push().setValue(new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString()));
+                        ref.push().setValue(newMovie);
                         adapter.notifyDataSetChanged();
                     }
                 }
