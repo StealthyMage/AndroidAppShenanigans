@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "260197339455",
+    "firebase_url": "https://week8-fit2081-bc0bf-default-rtdb.firebaseio.com",
+    "project_id": "week8-fit2081-bc0bf",
+    "storage_bucket": "week8-fit2081-bc0bf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260197339455:android:866eda050031ffe7f8038a",
+        "android_client_info": {
+          "package_name": "com.example.fit2081week2task2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "260197339455-f5pt4b5e8i0lrqstbgttgqiuq60aptho.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmPTTPJLbz9H-CEIZFbWab7Y4NSqm89_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "260197339455-f5pt4b5e8i0lrqstbgttgqiuq60aptho.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
