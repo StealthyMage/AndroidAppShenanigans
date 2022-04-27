@@ -29,6 +29,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -51,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<MovieDetails> datasource = new ArrayList<MovieDetails>();
     private MovieViewModel mMovieViewModel;
+    //Week 8 Firebase
+    FirebaseDatabase mFBDB = FirebaseDatabase.getInstance();
+    DatabaseReference ref = mFBDB.getReference("/movies");
 
 
     @Override
@@ -93,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -107,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 addListItem();
                 MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                 mMovieViewModel.insert(newMovie);
+                ref.push().setValue(newMovie);
                 adapter.notifyDataSetChanged();
 
             }
@@ -142,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
                         addListItem();
                         MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                         mMovieViewModel.insert(newMovie);
+                        ref.push().setValue(newMovie);
                         adapter.notifyDataSetChanged();
                     }
                 }
@@ -269,6 +278,7 @@ public class MainActivity extends AppCompatActivity {
                 //Creates a new MovieDetails object to insert into the database.
                 MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                 mMovieViewModel.insert(newMovie);
+                ref.push().setValue(newMovie);
             }
             else if(id == R.id.ViewAllMovies){
                 viewAllMovies(recyclerView);
@@ -293,6 +303,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                //Deletes all of the entries in the Database.
                 mMovieViewModel.deleteAll();
+               ref.setValue(null);
             }
             // close the drawer
             drawerlayout.closeDrawers();
