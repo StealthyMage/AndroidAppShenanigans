@@ -1,5 +1,7 @@
 package com.example.fit2081week2task2;
 
+import android.provider.BaseColumns;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -7,6 +9,8 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "MovieDetails")
 public class MovieDetails /*implements Serializable */{
+    public static final String TABLE_NAME = "Movies";
+    public static final String COLUMN_ID = BaseColumns._ID;
     @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "MovieID")
