@@ -3,7 +3,6 @@ package com.example.fit2081week2task2;
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
@@ -13,7 +12,7 @@ import androidx.annotation.Nullable;
 
 public class MyContentProvider extends ContentProvider {
 
-     public static final String CONTENT_AUTHORITY = "fit2081.week8.movie.provider";
+     public static final String CONTENT_AUTHORITY = "fit2081.app.Connor";
 
      public static final Uri CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
@@ -24,7 +23,7 @@ public class MyContentProvider extends ContentProvider {
      private static final int SINGLE_ROW_USERS = 4;
 
      MovieDatabase db;
-     private static final UriMatcher sUriMatcher = createUriMatcher();
+    /* private static final UriMatcher sUriMatcher = createUriMatcher();
 
 
 
@@ -47,7 +46,7 @@ public class MyContentProvider extends ContentProvider {
             uriMatcher.addURI(authority, "users" + "/#", SINGLE_ROW_USERS);
 
             return uriMatcher;
-    }
+    }*/
 
 
     @Override
