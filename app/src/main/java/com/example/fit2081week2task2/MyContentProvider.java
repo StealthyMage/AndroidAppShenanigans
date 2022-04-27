@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 
 public class MyContentProvider extends ContentProvider {
 
-     public static final String CONTENT_AUTHORITY = "fit2081.week8.movie.provider";
+     public static final String CONTENT_AUTHORITY = "fit2081.app.Connor";
 
      public static final Uri CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
