@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
     //Week 8 Firebase
     FirebaseDatabase mFBDB;
     DatabaseReference ref;
+    DatabaseReference ref2;
+    DatabaseReference ref3;
 
 
     @Override
@@ -96,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
         mMovieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
         mFBDB = FirebaseDatabase.getInstance();
         ref = mFBDB.getReference("/movies");
+        ref2 = mFBDB.getReference("/bigBudget");
+        ref3 = mFBDB.getReference();
 
 
 
@@ -114,6 +118,9 @@ public class MainActivity extends AppCompatActivity {
                 addListItem();
                 MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                 mMovieViewModel.insert(newMovie);
+                if(Integer.valueOf(mMovieCost.getText().toString()) > 40){
+                    ref2.push().setValue(newMovie);
+                }
                 ref.push().setValue(newMovie);
                 adapter.notifyDataSetChanged();
 
@@ -150,6 +157,9 @@ public class MainActivity extends AppCompatActivity {
                         addListItem();
                         MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                         mMovieViewModel.insert(newMovie);
+                        if(Integer.valueOf(mMovieCost.getText().toString()) > 40){
+                            ref2.push().setValue(newMovie);
+                        }
                         ref.push().setValue(newMovie);
                         adapter.notifyDataSetChanged();
                     }
@@ -278,6 +288,9 @@ public class MainActivity extends AppCompatActivity {
                 //Creates a new MovieDetails object to insert into the database.
                 MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                 mMovieViewModel.insert(newMovie);
+                if(Integer.valueOf(mMovieCost.getText().toString()) > 40){
+                    ref2.push().setValue(newMovie);
+                }
                 ref.push().setValue(newMovie);
             }
             else if(id == R.id.ViewAllMovies){
@@ -303,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                //Deletes all of the entries in the Database.
                 mMovieViewModel.deleteAll();
-               ref.setValue(null);
+               ref3.setValue(null);
             }
             // close the drawer
             drawerlayout.closeDrawers();
