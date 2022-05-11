@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -58,10 +59,14 @@ public class MainActivity extends AppCompatActivity {
     //Week 8 Firebase
     FirebaseDatabase mFBDB;
     DatabaseReference ref;
-    //Week 10 Velocity Stuff
-    private VelocityTracker mVelocityTracker = null;
     DatabaseReference ref2;
     DatabaseReference ref3;
+    //Week 10 Velocity Stuff
+    private VelocityTracker mVelocityTracker = null;
+    float x;
+    float y;
+    float x2;
+    float y2;
 
 
     @Override
@@ -105,7 +110,65 @@ public class MainActivity extends AppCompatActivity {
         ref2 = mFBDB.getReference("/bigBudget");
         ref3 = mFBDB.getReference();
 
+        //Week 10
+        View view = findViewById(R.id.mainLayout);
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                int action = event.getActionMasked();
+                final int MINIMUM_DISTANCE = 50;
+                switch (action){
+                    case (MotionEvent.ACTION_DOWN):
+                        x = event.getX();
+                        y = event.getY();
+                        Log.d("Week10","Action was down");
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        x2 = event.getX();
+                        y2 = event.getY();
+                    return true;
+                    case (MotionEvent.ACTION_UP):
+                        x2 = event.getX();
+                        y2 = event.getY();
+                        float xDif = x2 - x;
+                        float yDif = y2 - y;
+                        if(Math.abs(xDif) > MINIMUM_DISTANCE && Math.abs(yDif) < MINIMUM_DISTANCE){
+                            addListItem();
+                            MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
+                            mMovieViewModel.insert(newMovie);
+                            ref.push().setValue(newMovie);
+                            adapter.notifyDataSetChanged();
+                            Toast.makeText(MainActivity.this, mMovieName.getText().toString(), Toast.LENGTH_SHORT).show();
+                            Log.d("Week10","Action was swipe left to right");
 
+                        }
+                        else if(Math.abs(yDif) > MINIMUM_DISTANCE && Math.abs(xDif) < MINIMUM_DISTANCE){
+                           /* while(0 < mMovieArray.size()){
+                                mMovieArray.remove(mMovieArray.size()-1);
+                                adapter.notifyDataSetChanged();
+                            }
+                            //Deletes all of the entries in the Database.
+                            mMovieViewModel.deleteAll();
+                            ref.setValue(null);
+                            Log.d("Week10","Action was swipe up to down");*/
+                            mMovieName.setText("");
+                            mMovieYear.setText("");
+                            mMovieCountry.setText("");
+                            mMovieGenre.setText("");
+                            mMovieCost.setText("");
+                            mMovieKeywords.setText("");
+
+                        }
+                        else{
+                            Log.d("Week10","No swipe detected");
+                        }
+                        return true;
+                    case (MotionEvent.ACTION_CANCEL):
+                    default:
+                        return false;
+                }
+            }
+        });
 
 
         fab.setOnClickListener(new View.OnClickListener(){
@@ -347,53 +410,5 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }
     };
-
-    //Week 10 onTouchEvent
-    @Override
-    public boolean onTouchEvent(MotionEvent event){
-        int index = event.getActionIndex();
-        int action = event.getActionMasked();
-        int pointerId = event.getPointerId(index);
-        int x = (int)event.getX();
-        int y = (int)event.getY();
-        switch (action){
-            case MotionEvent.ACTION_DOWN:
-                if(mVelocityTracker == null){
-                    mVelocityTracker = VelocityTracker.obtain();
-                }
-                else{
-                    mVelocityTracker.clear();
-                }
-                mVelocityTracker.addMovement(event);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                mVelocityTracker.addMovement(event);
-                mVelocityTracker.computeCurrentVelocity(1000);
-                int newX = (int)mVelocityTracker.getXVelocity(pointerId);
-                int newY = (int)mVelocityTracker.getYVelocity(pointerId);
-                if((newX - x) > 50){
-                    addListItem();
-                    MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
-                    mMovieViewModel.insert(newMovie);
-                    ref.push().setValue(newMovie);
-                    adapter.notifyDataSetChanged();
-                }
-                else if((newY-y) > 50){
-                    while(0 < mMovieArray.size()){
-                        mMovieArray.remove(mMovieArray.size()-1);
-                        adapter.notifyDataSetChanged();
-                    }
-                    //Deletes all of the entries in the Database.
-                    mMovieViewModel.deleteAll();
-                    ref.setValue(null);
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-                mVelocityTracker.recycle();
-                break;
-        }
-    return true;
-    }
 
 }

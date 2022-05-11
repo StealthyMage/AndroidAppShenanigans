@@ -15,8 +15,8 @@
         <ListView
             android:id="@+id/MovieList"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="575dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="515dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
