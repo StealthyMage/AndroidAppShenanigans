@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         //Week6
         recyclerView=findViewById(R.id.recycler_layout_id);
 
+        //Week8
         mMovieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
         mFBDB = FirebaseDatabase.getInstance();
         ref = mFBDB.getReference("/movies");
@@ -169,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        //FAB Logic
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -199,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(new MyNavigationListener());
 
-
+        //Checking Shared Preferences for Data
         if (sharedPref != null) { //This if loop checks to see if there are values in the sharedPref file, and if so, to restore those values. (Week 3 Task 2)
             mMovieName.setText(sharedPref.getString("Movie Name", mMovieName.getText().toString()).toUpperCase());
             mMovieYear.setText(sharedPref.getString("Year Released", mMovieYear.getText().toString()));
@@ -231,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+        //Clear Button Logic
         mClearButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -245,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
     }
-
+    //Logic for adding things to the listview
     private void addListItem() {
         mMovieArray.add(mMovieName.getText().toString() + " | " + mMovieYear.getText().toString());
         MovieDetails newDetails = new MovieDetails(mMovieName.getText().toString(),mMovieYear.getText().toString(),mMovieCountry.getText().toString(),mMovieCost.getText().toString(),mMovieGenre.getText().toString(),mMovieKeywords.getText().toString());
@@ -398,10 +400,12 @@ public class MainActivity extends AppCompatActivity {
         //intent.putExtra("BUNDLE",args);
         startActivity(intent);
     }
+    //This method starts a new activity to view all items in the database that cost more than 100
     public void listMoreThan100(View view){
         Intent intent = new Intent(this, NewRecycler.class);
         startActivity(intent);
     }
+    //This method holds the logic to remove the last item added to the database/list
     View.OnClickListener undoOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
