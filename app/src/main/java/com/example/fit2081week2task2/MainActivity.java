@@ -61,8 +61,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference ref;
     DatabaseReference ref2;
     DatabaseReference ref3;
-    //Week 10 Velocity Stuff
-    private VelocityTracker mVelocityTracker = null;
+    //Week 10 Stuff
     float x;
     float y;
     float x2;
