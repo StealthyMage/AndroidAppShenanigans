@@ -16,39 +16,7 @@ public class MyContentProvider extends ContentProvider {
 
      public static final Uri CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
-
-     private static final int MULTIPLE_ROWS_TASKS = 1;
-     private static final int SINGLE_ROW_TASKS = 2;
-     private static final int MULTIPLE_ROWS_USERS = 3;
-     private static final int SINGLE_ROW_USERS = 4;
-
      MovieDatabase db;
-    /* private static final UriMatcher sUriMatcher = createUriMatcher();
-
-
-
-
-    private static UriMatcher createUriMatcher() {
-
-            final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-            final String authority = CONTENT_AUTHORITY;
-
-            //sUriMatcher will return code 1 if uri like authority/tasks
-            uriMatcher.addURI(authority, MovieDetails.TABLE_NAME, MULTIPLE_ROWS_TASKS);
-
-            //sUriMatcher will return code 2 if uri like e.g. authority/tasks/7 (where 7 is id of row in tasks table)
-            uriMatcher.addURI(authority, MovieDetails.TABLE_NAME + "/#", SINGLE_ROW_TASKS);
-
-            //sUriMatcher will return code 1 if uri like authority/users
-            uriMatcher.addURI(authority, "users", MULTIPLE_ROWS_USERS);
-
-            //sUriMatcher will return code 2 if uri like e.g. authority/users/7 (where 7 is id of row in users table)
-            uriMatcher.addURI(authority, "users" + "/#", SINGLE_ROW_USERS);
-
-            return uriMatcher;
-    }*/
-
-
     @Override
    public boolean onCreate() {
             db = MovieDatabase.getDatabase(getContext());

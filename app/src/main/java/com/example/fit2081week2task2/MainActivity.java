@@ -10,8 +10,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.VelocityTracker;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -58,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
     //Week 8 Firebase
     FirebaseDatabase mFBDB;
     DatabaseReference ref;
-    //Week 10 Velocity Stuff
-    private VelocityTracker mVelocityTracker = null;
+    DatabaseReference ref2;
+    DatabaseReference ref3;
 
 
     @Override
@@ -100,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
         mMovieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
         mFBDB = FirebaseDatabase.getInstance();
         ref = mFBDB.getReference("/movies");
+        ref2 = mFBDB.getReference("/bigBudget");
+        ref3 = mFBDB.getReference();
 
 
 
@@ -118,6 +118,9 @@ public class MainActivity extends AppCompatActivity {
                 addListItem();
                 MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                 mMovieViewModel.insert(newMovie);
+                if(Integer.valueOf(mMovieCost.getText().toString()) > 40){
+                    ref2.push().setValue(newMovie);
+                }
                 ref.push().setValue(newMovie);
                 adapter.notifyDataSetChanged();
 
@@ -154,6 +157,9 @@ public class MainActivity extends AppCompatActivity {
                         addListItem();
                         MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                         mMovieViewModel.insert(newMovie);
+                        if(Integer.valueOf(mMovieCost.getText().toString()) > 40){
+                            ref2.push().setValue(newMovie);
+                        }
                         ref.push().setValue(newMovie);
                         adapter.notifyDataSetChanged();
                     }
@@ -282,6 +288,9 @@ public class MainActivity extends AppCompatActivity {
                 //Creates a new MovieDetails object to insert into the database.
                 MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                 mMovieViewModel.insert(newMovie);
+                if(Integer.valueOf(mMovieCost.getText().toString()) > 40){
+                    ref2.push().setValue(newMovie);
+                }
                 ref.push().setValue(newMovie);
             }
             else if(id == R.id.ViewAllMovies){
@@ -307,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                //Deletes all of the entries in the Database.
                 mMovieViewModel.deleteAll();
-               ref.setValue(null);
+               ref3.setValue(null);
             }
             // close the drawer
             drawerlayout.closeDrawers();
@@ -334,53 +343,4 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }
     };
-
-    //Week 10 onTouchEvent
-    @Override
-    public boolean onTouchEvent(MotionEvent event){
-        int index = event.getActionIndex();
-        int action = event.getActionMasked();
-        int pointerId = event.getPointerId(index);
-        int x = (int)event.getX();
-        int y = (int)event.getY();
-        switch (action){
-            case MotionEvent.ACTION_DOWN:
-                if(mVelocityTracker == null){
-                    mVelocityTracker = VelocityTracker.obtain();
-                }
-                else{
-                    mVelocityTracker.clear();
-                }
-                mVelocityTracker.addMovement(event);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                mVelocityTracker.addMovement(event);
-                mVelocityTracker.computeCurrentVelocity(1000);
-                int newX = (int)mVelocityTracker.getXVelocity(pointerId);
-                int newY = (int)mVelocityTracker.getYVelocity(pointerId);
-                if((newX - x) > 50){
-                    addListItem();
-                    MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
-                    mMovieViewModel.insert(newMovie);
-                    ref.push().setValue(newMovie);
-                    adapter.notifyDataSetChanged();
-                }
-                else if((newY-y) > 50){
-                    while(0 < mMovieArray.size()){
-                        mMovieArray.remove(mMovieArray.size()-1);
-                        adapter.notifyDataSetChanged();
-                    }
-                    //Deletes all of the entries in the Database.
-                    mMovieViewModel.deleteAll();
-                    ref.setValue(null);
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-                mVelocityTracker.recycle();
-                break;
-        }
-    return true;
-    }
-
 }
