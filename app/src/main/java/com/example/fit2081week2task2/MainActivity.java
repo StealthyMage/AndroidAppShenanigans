@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
                             mMovieGenre.setText("");
                             mMovieCost.setText("");
                             mMovieKeywords.setText("");
+                            Toast.makeText(MainActivity.this, "Clearing Values!", Toast.LENGTH_SHORT).show();
 
                         }
                         else if(xDif > yDif) {
@@ -169,11 +170,13 @@ public class MainActivity extends AppCompatActivity {
                                 mMovieCost.setText("Default Value");
                                 mMovieKeywords.setText("Default Value");
                                 Log.d("Week10", "Action was swipe down to up");
+                                Toast.makeText(MainActivity.this, "Resetting to Default Values", Toast.LENGTH_SHORT).show();
                             }
                         }
                         else if (yDif > xDif) {
                             if (xDif <= MINIMUM_DISTANCE && yDif <= MINIMUM_DISTANCE) {
                                 mMovieViewModel.deleteHighestCost();
+                                Toast.makeText(MainActivity.this, "Deleting Most Expensive Movie", Toast.LENGTH_SHORT).show();
                             }
                         }
                         else{
