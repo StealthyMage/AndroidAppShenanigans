@@ -43,4 +43,6 @@ public class MovieRepository {
     LiveData<List<MovieDetails>> listMoreThan100() {
         return mMoviesMore100;
     }
+
+    public void deleteHighestCost(){MovieDatabase.databaseWriteExecutor.execute(()-> {mMovieDetailsDao.deleteHighestCost();});}
 }

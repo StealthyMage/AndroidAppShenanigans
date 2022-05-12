@@ -132,9 +132,10 @@ public class MainActivity extends AppCompatActivity {
                         y2 = event.getY();
                         float xDif = x2 - x;
                         float yDif = y2 - y;
-                        if(Math.abs(xDif) > MINIMUM_DISTANCE && Math.abs(yDif) < MINIMUM_DISTANCE){
+                        //float inverseYDif = y - y2;
+                        if(xDif >= MINIMUM_DISTANCE && yDif <= MINIMUM_DISTANCE){
                             addListItem();
-                            MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
+                            MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), Integer.valueOf(mMovieCost.getText().toString()), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                             mMovieViewModel.insert(newMovie);
                             ref.push().setValue(newMovie);
                             adapter.notifyDataSetChanged();
@@ -142,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.d("Week10","Action was swipe left to right");
 
                         }
-                        else if(Math.abs(yDif) > MINIMUM_DISTANCE && Math.abs(xDif) < MINIMUM_DISTANCE){
+                        else if(yDif >= MINIMUM_DISTANCE && xDif <= MINIMUM_DISTANCE){
                            /* while(0 < mMovieArray.size()){
                                 mMovieArray.remove(mMovieArray.size()-1);
                                 adapter.notifyDataSetChanged();
@@ -158,6 +159,22 @@ public class MainActivity extends AppCompatActivity {
                             mMovieCost.setText("");
                             mMovieKeywords.setText("");
 
+                        }
+                        else if(xDif > yDif) {
+                            if (yDif <= MINIMUM_DISTANCE && xDif <= MINIMUM_DISTANCE) {
+                                mMovieName.setText("Default Value");
+                                mMovieYear.setText("Default Value");
+                                mMovieCountry.setText("Default Value");
+                                mMovieGenre.setText("Default Value");
+                                mMovieCost.setText("Default Value");
+                                mMovieKeywords.setText("Default Value");
+                                Log.d("Week10", "Action was swipe down to up");
+                            }
+                        }
+                        else if (yDif > xDif) {
+                            if (xDif <= MINIMUM_DISTANCE && yDif <= MINIMUM_DISTANCE) {
+                                mMovieViewModel.deleteHighestCost();
+                            }
                         }
                         else{
                             Log.d("Week10","No swipe detected");
@@ -183,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("Movie Keywords", mMovieKeywords.getText().toString());
                 editor.apply();
                 addListItem();
-                MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
+                MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), Integer.valueOf(mMovieCost.getText().toString()), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                 mMovieViewModel.insert(newMovie);
                 if(Integer.valueOf(mMovieCost.getText().toString()) > 40){
                     ref2.push().setValue(newMovie);
@@ -222,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
                         editor.putString("Movie Keywords", mMovieKeywords.getText().toString());
                         editor.apply();
                         addListItem();
-                        MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
+                        MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), Integer.valueOf(mMovieCost.getText().toString()), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                         mMovieViewModel.insert(newMovie);
                         if(Integer.valueOf(mMovieCost.getText().toString()) > 40){
                             ref2.push().setValue(newMovie);
@@ -250,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
     //Logic for adding things to the listview
     private void addListItem() {
         mMovieArray.add(mMovieName.getText().toString() + " | " + mMovieYear.getText().toString());
-        MovieDetails newDetails = new MovieDetails(mMovieName.getText().toString(),mMovieYear.getText().toString(),mMovieCountry.getText().toString(),mMovieCost.getText().toString(),mMovieGenre.getText().toString(),mMovieKeywords.getText().toString());
+        MovieDetails newDetails = new MovieDetails(mMovieName.getText().toString(),mMovieYear.getText().toString(),mMovieCountry.getText().toString(),Integer.valueOf(mMovieCost.getText().toString()),mMovieGenre.getText().toString(),mMovieKeywords.getText().toString());
         //datasource.add(newDetails);
         adapter.notifyDataSetChanged();
     }
@@ -354,7 +371,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.apply();*/
                 addListItem();
                 //Creates a new MovieDetails object to insert into the database.
-                MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), mMovieCost.getText().toString(), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
+                MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), Integer.valueOf(mMovieCost.getText().toString()), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                 mMovieViewModel.insert(newMovie);
                 if(Integer.valueOf(mMovieCost.getText().toString()) > 40){
                     ref2.push().setValue(newMovie);

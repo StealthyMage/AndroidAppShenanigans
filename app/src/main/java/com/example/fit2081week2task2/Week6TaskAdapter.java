@@ -38,7 +38,7 @@ public class Week6TaskAdapter extends RecyclerView.Adapter<Week6TaskAdapter.MyVi
         holder.movieName.setText(mMovieDetails.get(position).getMovie_name());
         holder.movieYear.setText(mMovieDetails.get(position).getMovie_year());
         holder.movieCountry.setText(mMovieDetails.get(position).getMovie_country());
-        holder.movieCost.setText(mMovieDetails.get(position).getMovie_cost());
+        holder.movieCost.setText(String.valueOf(mMovieDetails.get(position).getMovie_cost()));
         holder.movieGenre.setText(mMovieDetails.get(position).getMovie_genre());
         holder.movieKeywords.setText(mMovieDetails.get(position).getMovie_keywords());
 

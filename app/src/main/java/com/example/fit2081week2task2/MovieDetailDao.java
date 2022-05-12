@@ -35,4 +35,7 @@ public interface MovieDetailDao {
 
     @Query("SELECT * FROM MovieDetails WHERE MovieCost > 100")
     LiveData<List<MovieDetails>> listMoreThan100();
+
+    @Query("DELETE FROM MovieDetails where MovieCost  = (Select MAX(MovieCost) FROM MovieDetails)")
+    void deleteHighestCost();
 }

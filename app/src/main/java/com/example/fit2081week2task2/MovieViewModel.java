@@ -36,4 +36,5 @@ public class MovieViewModel extends AndroidViewModel {
     public LiveData<List<MovieDetails>> listMoreThan100() {
         return mMoviesMoreThan100;
     }
+    public void deleteHighestCost(){mRepository.deleteHighestCost();}
 }

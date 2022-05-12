@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {MovieDetails.class}, version = 3)
+@Database(entities = {MovieDetails.class}, version = 4)
 public abstract class MovieDatabase extends RoomDatabase{
     public static final String MOVIE_DATABASE_NAME = "Movie_Database"; //Quite literally the DB name
     public abstract MovieDetailDao movieDetailDao(); //Creates a new instance of the DAO interface
