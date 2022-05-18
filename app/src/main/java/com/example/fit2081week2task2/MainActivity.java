@@ -375,7 +375,20 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
     @Override
     public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-        return false;
+        if (v > 0) {
+            while (v > 0) {
+                mMovieYear.setText(String.valueOf(Integer.valueOf(mMovieYear.getText().toString()) - 1));
+                v--;
+            }
+        }
+        else if (v < 0){
+            while (v < 0) {
+                mMovieYear.setText(String.valueOf(Integer.valueOf(mMovieYear.getText().toString()) + 1));
+                v++;
+            }
+
+        }
+        return true;
     }
 
     @Override
