@@ -274,10 +274,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         );
 
         //Week 11 Listeners and Detectors
-        mScaleDetector = new ScaleGestureDetector(this, (ScaleGestureDetector.OnScaleGestureListener) this);
+        //mScaleDetector = new ScaleGestureDetector(this, (ScaleGestureDetector.OnScaleGestureListener) this);
         mDetector = new GestureDetectorCompat(this, this);
         mDetector.setOnDoubleTapListener(this);
-        View newGestureLayout = findViewById(R.id.frame_layout_id);
+        View newGestureLayout = findViewById(R.id.frame_layout_id2);
         newGestureLayout.setOnTouchListener(this);
     }
     //Logic for adding things to the listview
@@ -297,7 +297,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         int id = item.getItemId();
-
         if (id == R.id.clear_fields_menu_id) {
             mMovieName.setText("");
             mMovieYear.setText("");
@@ -337,7 +336,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     //Week 11 Stuff
     @Override
     public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
-        mMovieCost.setText(Integer.valueOf(mMovieCost.getText().toString()) + 150);
+        mMovieCost.setText(String.valueOf(Integer.valueOf(mMovieCost.getText().toString()) + 150));
         Toast.makeText(MainActivity.this, "Adding 150 to the Cost!", Toast.LENGTH_SHORT).show();
         return true;
     }
@@ -391,7 +390,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        return false;
+        mDetector.onTouchEvent(motionEvent);
+        return true;
     }
 
     //End Week 11 Stuff
