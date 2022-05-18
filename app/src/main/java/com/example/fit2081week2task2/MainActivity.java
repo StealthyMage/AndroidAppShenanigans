@@ -9,7 +9,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -40,7 +39,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class MainActivity extends AppCompatActivity implements View.OnTouchListener, GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
+public class MainActivity extends AppCompatActivity {
     Button mButton;
     EditText mMovieName;
     EditText mMovieYear;
@@ -274,11 +273,13 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         );
 
         //Week 11 Listeners and Detectors
+        GestureListener myGestureListener = new GestureListener();
         //mScaleDetector = new ScaleGestureDetector(this, (ScaleGestureDetector.OnScaleGestureListener) this);
-        mDetector = new GestureDetectorCompat(this, this);
-        mDetector.setOnDoubleTapListener(this);
-        View newGestureLayout = findViewById(R.id.frame_layout_id2);
-        newGestureLayout.setOnTouchListener(this);
+        mDetector = new GestureDetectorCompat(this, myGestureListener);
+        mDetector.setOnDoubleTapListener(myGestureListener);
+        //View newGestureLayout = findViewById(R.id.frame_layout_id2);
+        //newGestureLayout.setOnTouchListener(myGestureListener);
+        //mDetector.onTouchEvent(motionEvent);
     }
     //Logic for adding things to the listview
     private void addListItem() {
@@ -333,79 +334,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
     }
 
-    //Week 11 Stuff
-    @Override
-    public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
-        mMovieCost.setText(String.valueOf(Integer.valueOf(mMovieCost.getText().toString()) + 150));
-        Toast.makeText(MainActivity.this, "Adding 150 to the Cost!", Toast.LENGTH_SHORT).show();
-        return true;
-    }
 
-    @Override
-    public boolean onDoubleTap(MotionEvent motionEvent) {
-        mMovieName.setText("Hot Fuzz");
-        mMovieYear.setText("2007");
-        mMovieCountry.setText("UK");
-        mMovieGenre.setText("Action/Comedy");
-        mMovieCost.setText("12");
-        mMovieKeywords.setText("Action, Comedy, Series, Cornetto Trilogy");
-        Toast.makeText(MainActivity.this, "Loading values for Hot Fuzz!", Toast.LENGTH_SHORT).show();
-        return true;
-    }
-
-    @Override
-    public boolean onDoubleTapEvent(MotionEvent motionEvent) {
-        return false;
-    }
-
-    @Override
-    public boolean onDown(MotionEvent motionEvent) {
-        return false;
-    }
-
-    @Override
-    public void onShowPress(MotionEvent motionEvent) {
-
-    }
-
-    @Override
-    public boolean onSingleTapUp(MotionEvent motionEvent) {
-        return false;
-    }
-
-    @Override
-    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-        if (v > 0) {
-            while (v > 0) {
-                mMovieYear.setText(String.valueOf(Integer.valueOf(mMovieYear.getText().toString()) - 1));
-                v--;
-            }
-        }
-        else if (v < 0){
-            while (v < 0) {
-                mMovieYear.setText(String.valueOf(Integer.valueOf(mMovieYear.getText().toString()) + 1));
-                v++;
-            }
-
-        }
-        return true;
-    }
-
-    @Override
-    public void onLongPress(MotionEvent motionEvent) {
-
-    }
-
-    @Override
-    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-        return false;
-    }
-
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        mDetector.onTouchEvent(motionEvent);
-        return true;
-    }
 
     //End Week 11 Stuff
     //Week 4 Task 3
@@ -520,5 +449,80 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             adapter.notifyDataSetChanged();
         }
     };
+
+    private class GestureListener extends android.view.GestureDetector.SimpleOnGestureListener{
+        //Week 11 Stuff
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
+            mMovieCost.setText(String.valueOf(Integer.valueOf(mMovieCost.getText().toString()) + 150));
+            Toast.makeText(MainActivity.this, "Adding 150 to the Cost!", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        @Override
+        public boolean onDoubleTap(MotionEvent motionEvent) {
+            mMovieName.setText("Hot Fuzz");
+            mMovieYear.setText("2007");
+            mMovieCountry.setText("UK");
+            mMovieGenre.setText("Action/Comedy");
+            mMovieCost.setText("12");
+            mMovieKeywords.setText("Action, Comedy, Series, Cornetto Trilogy");
+            Toast.makeText(MainActivity.this, "Loading values for Hot Fuzz!", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        @Override
+        public boolean onDoubleTapEvent(MotionEvent motionEvent) {
+            return false;
+        }
+
+        @Override
+        public boolean onDown(MotionEvent motionEvent) {
+            return false;
+        }
+
+        @Override
+        public void onShowPress(MotionEvent motionEvent) {
+
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent motionEvent) {
+            return false;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+            if (v > 0) {
+                while (v > 0) {
+                    mMovieYear.setText(String.valueOf(Integer.valueOf(mMovieYear.getText().toString()) - 1));
+                    v--;
+                }
+            }
+            else if (v < 0){
+                while (v < 0) {
+                    mMovieYear.setText(String.valueOf(Integer.valueOf(mMovieYear.getText().toString()) + 1));
+                    v++;
+                }
+
+            }
+            return true;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent motionEvent) {
+            mMovieName.setText("");
+            mMovieYear.setText("");
+            mMovieCountry.setText("");
+            mMovieGenre.setText("");
+            mMovieCost.setText("");
+            mMovieKeywords.setText("");
+        }
+
+        @Override
+        public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+            return false;
+        }
+    }
 
 }
