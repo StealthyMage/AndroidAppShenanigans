@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.VelocityTracker;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -111,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         ref3 = mFBDB.getReference();
 
         //Week 10
-        View view = findViewById(R.id.mainLayout);
+        View view = findViewById(R.id.frame_layout_id);
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
