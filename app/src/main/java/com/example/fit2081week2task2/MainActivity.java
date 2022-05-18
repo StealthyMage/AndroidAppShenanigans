@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
+                mDetector.onTouchEvent(event);
                 int action = event.getActionMasked();
                 final int MINIMUM_DISTANCE = 50;
                 switch (action){
@@ -280,6 +281,14 @@ public class MainActivity extends AppCompatActivity {
         //View newGestureLayout = findViewById(R.id.frame_layout_id2);
         //newGestureLayout.setOnTouchListener(myGestureListener);
         //mDetector.onTouchEvent(motionEvent);
+        View view2 = findViewById(R.id.frame_layout_id2);
+        view2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                mDetector.onTouchEvent(event);
+                return true;
+            }
+        });
     }
     //Logic for adding things to the listview
     private void addListItem() {
@@ -336,7 +345,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    //End Week 11 Stuff
     //Week 4 Task 3
     private class MyBroadcastReceiver extends BroadcastReceiver {
 
@@ -493,13 +501,15 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-            if (v > 0) {
+            if (v < 0) {
+                v = v*-1; //delete this line to make the slider work like a normal slider (who decrements from left to right?)
                 while (v > 0) {
                     mMovieYear.setText(String.valueOf(Integer.valueOf(mMovieYear.getText().toString()) - 1));
                     v--;
                 }
             }
-            else if (v < 0){
+            else if (v > 0){
+                v = v*-1; //delete this line to make the slider work like a normal slider (who increments from right to left?)
                 while (v < 0) {
                     mMovieYear.setText(String.valueOf(Integer.valueOf(mMovieYear.getText().toString()) + 1));
                     v++;
