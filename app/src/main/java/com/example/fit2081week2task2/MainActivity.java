@@ -9,9 +9,11 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,6 +26,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.GestureDetectorCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,7 +40,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnTouchListener, GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
     Button mButton;
     EditText mMovieName;
     EditText mMovieYear;
@@ -65,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
     float y;
     float x2;
     float y2;
+    //Week 11
+    private GestureDetectorCompat mDetector;
+    private ScaleGestureDetector mScaleDetector;
 
 
     @Override
@@ -110,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         ref3 = mFBDB.getReference();
 
         //Week 10
+        //Listening for gestures to do certain operations
         View view = findViewById(R.id.frame_layout_id);
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -265,6 +272,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        //Week 11 Listeners and Detectors
+        mScaleDetector = new ScaleGestureDetector(this, (ScaleGestureDetector.OnScaleGestureListener) this);
+        mDetector = new GestureDetectorCompat(this, this);
+        mDetector.setOnDoubleTapListener(this);
+        View newGestureLayout = findViewById(R.id.frame_layout_id);
+        newGestureLayout.setOnTouchListener(this);
     }
     //Logic for adding things to the listview
     private void addListItem() {
@@ -320,6 +334,67 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Week 11 Stuff
+    @Override
+    public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
+        mMovieCost.setText(Integer.valueOf(mMovieCost.getText().toString()) + 150);
+        Toast.makeText(MainActivity.this, "Adding 150 to the Cost!", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    @Override
+    public boolean onDoubleTap(MotionEvent motionEvent) {
+        mMovieName.setText("Hot Fuzz");
+        mMovieYear.setText("2007");
+        mMovieCountry.setText("UK");
+        mMovieGenre.setText("Action/Comedy");
+        mMovieCost.setText("12");
+        mMovieKeywords.setText("Action, Comedy, Series, Cornetto Trilogy");
+        Toast.makeText(MainActivity.this, "Loading values for Hot Fuzz!", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    @Override
+    public boolean onDoubleTapEvent(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public boolean onDown(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        return false;
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        return false;
+    }
+
+    //End Week 11 Stuff
     //Week 4 Task 3
     private class MyBroadcastReceiver extends BroadcastReceiver {
 
