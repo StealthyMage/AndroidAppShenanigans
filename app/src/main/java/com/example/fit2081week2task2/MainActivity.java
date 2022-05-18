@@ -531,6 +531,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+            moveTaskToBack(true);
             return false;
         }
     }
