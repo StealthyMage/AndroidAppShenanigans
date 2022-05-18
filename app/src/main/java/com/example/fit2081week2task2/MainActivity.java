@@ -502,14 +502,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
             if (v < 0) {
-                v = v*-1; //delete this line to make the slider work like a normal slider (who decrements from left to right?)
+                v = v*-1; //delete this line and flip the < to > in the line above to make the slider work like a normal slider (who decrements from left to right?)
                 while (v > 0) {
                     mMovieYear.setText(String.valueOf(Integer.valueOf(mMovieYear.getText().toString()) - 1));
                     v--;
                 }
             }
             else if (v > 0){
-                v = v*-1; //delete this line to make the slider work like a normal slider (who increments from right to left?)
+                v = v*-1; //delete this line and flip the > to < in the line above to make the slider work like a normal slider (who increments from right to left?)
                 while (v < 0) {
                     mMovieYear.setText(String.valueOf(Integer.valueOf(mMovieYear.getText().toString()) + 1));
                     v++;
