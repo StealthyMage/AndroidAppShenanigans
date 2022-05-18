@@ -458,6 +458,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    //Week 11 Class
     private class GestureListener extends android.view.GestureDetector.SimpleOnGestureListener{
         //Week 11 Stuff
         @Override
