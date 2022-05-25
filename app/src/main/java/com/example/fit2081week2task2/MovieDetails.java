@@ -28,6 +28,7 @@ public class MovieDetails /*implements Serializable */{
     @ColumnInfo(name = "MovieKeywords")
     private String movie_keywords;
 
+
     public MovieDetails(String movie_name, String movie_year, String movie_country, int movie_cost, String movie_genre, String movie_keywords) {
         this.movie_name = movie_name;
         this.movie_year = movie_year;

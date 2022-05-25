@@ -33,10 +33,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,7 +74,9 @@ public class MainActivity extends AppCompatActivity {
     float y2;
     //Week 11
     private GestureDetectorCompat mDetector;
-    private ScaleGestureDetector mScaleDetector;
+    //Week 12
+    int movieId = 0;
+    int delete = 0;
 
 
     @Override
@@ -113,6 +120,46 @@ public class MainActivity extends AppCompatActivity {
         ref = mFBDB.getReference("/movies");
         ref2 = mFBDB.getReference("/bigBudget");
         ref3 = mFBDB.getReference();
+        //Week 12
+        //This updates the database whenever the main activity is loaded.
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                int movieID = 0;
+                if (dataSnapshot.exists()) {
+                    while (0 < mMovieArray.size()) {
+                        mMovieArray.remove(mMovieArray.size() - 1);
+                        //datasource.remove(datasource.size()-1);
+                        adapter.notifyDataSetChanged();
+                    }
+                    //Deletes all of the entries in the Database.
+                    mMovieViewModel.deleteAll();
+                    for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                        if (ds.child("movie_name").getValue(String.class) == null) {
+                            Toast.makeText(MainActivity.this, "The read failed", Toast.LENGTH_SHORT).show();
+                        } else {
+                            String movieName = ds.child("movie_name").getValue(String.class);
+                            String movieYear = ds.child("movie_year").getValue(String.class);
+                            int movieCost = ds.child("movie_cost").getValue(int.class);
+                            String movieGenre = ds.child("movie_genre").getValue(String.class);
+                            String movieCountry = ds.child("movie_country").getValue(String.class);
+                            String movieKeywords = ds.child("movie_keywords").getValue(String.class);
+                            MovieDetails readMovieDetails = new MovieDetails(movieName, movieYear, movieCountry, movieCost, movieGenre, movieKeywords);
+                            mMovieViewModel.insert(readMovieDetails);
+                            adapter.notifyDataSetChanged();
+                            movieID++;
+                            movieId = movieID;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(MainActivity.this, "The read failed", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         //Week 10
         //Listening for gestures to do certain operations
@@ -120,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
-                mDetector.onTouchEvent(event);
                 int action = event.getActionMasked();
                 final int MINIMUM_DISTANCE = 50;
                 switch (action){
@@ -200,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                movieId++;
                 Snackbar.make(view,"Adding Movie!", Snackbar.LENGTH_SHORT).setAction("Undo",undoOnClickListener).show();
                 editor.putString("Movie Name", mMovieName.getText().toString());
                 editor.putString("Year Released", mMovieYear.getText().toString());
@@ -212,11 +259,11 @@ public class MainActivity extends AppCompatActivity {
                 MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), Integer.valueOf(mMovieCost.getText().toString()), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                 mMovieViewModel.insert(newMovie);
                 if(Integer.valueOf(mMovieCost.getText().toString()) > 40){
-                    ref2.push().setValue(newMovie);
+                    ref2.child(String.valueOf(movieId)).setValue(newMovie);
                 }
-                ref.push().setValue(newMovie);
+                ref.child(String.valueOf(movieId)).setValue(newMovie);
                 adapter.notifyDataSetChanged();
-
+                delete++;
             }
         });
 
@@ -251,10 +298,12 @@ public class MainActivity extends AppCompatActivity {
                         MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), Integer.valueOf(mMovieCost.getText().toString()), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                         mMovieViewModel.insert(newMovie);
                         if(Integer.valueOf(mMovieCost.getText().toString()) > 40){
-                            ref2.push().setValue(newMovie);
+                            ref2.child(String.valueOf(movieId)).setValue(newMovie);
                         }
-                        ref.push().setValue(newMovie);
+                        ref.child(String.valueOf(movieId)).setValue(newMovie);
                         adapter.notifyDataSetChanged();
+                        movieId++;
+                        delete++;
                     }
                 }
         );
@@ -286,6 +335,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 mDetector.onTouchEvent(event);
+
                 return true;
             }
         });
@@ -401,9 +451,12 @@ public class MainActivity extends AppCompatActivity {
                 MovieDetails newMovie = new MovieDetails(mMovieName.getText().toString(), mMovieYear.getText().toString(), mMovieCountry.getText().toString(), Integer.valueOf(mMovieCost.getText().toString()), mMovieGenre.getText().toString(), mMovieKeywords.getText().toString());
                 mMovieViewModel.insert(newMovie);
                 if(Integer.valueOf(mMovieCost.getText().toString()) > 40){
-                    ref2.push().setValue(newMovie);
+                    ref2.child(String.valueOf(movieId)).setValue(newMovie);
                 }
-                ref.push().setValue(newMovie);
+                ref.child(String.valueOf(movieId)).setValue(newMovie);
+                adapter.notifyDataSetChanged();
+                movieId++;
+                delete++;
             }
             else if(id == R.id.ViewAllMovies){
                 viewAllMovies(recyclerView);
@@ -497,6 +550,15 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onSingleTapUp(MotionEvent motionEvent) {
+            /*if(motionEvent.getX() < 50 && motionEvent.getY() < 50){
+                @Override
+                public boolean onDoubleTap(MotionEvent motionEvent){
+                    if(motionEvent.getX() > 150 && motionEvent.getY() > 75){
+                        mMovieName.setText((mMovieName.getText().toString()).toUpperCase());
+                    }
+                }
+        }
+             This doesnt work, but not sure how to make it work.*/
             return false;
         }
 
